@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import ScoopOption from './ScoopOption';
+import ToppingOption from './ToppingOption';
 
 // Sources:
 // https://www.udemy.com/course/react-testing-library/learn/lecture/24450802#overview
@@ -35,9 +36,8 @@ export default function Options({ optionType }) {
 
   // If we get 'scoops', then set 'ItemComponent' to be 'ScoopOption'. That's what we're going to render.
   // We're going to render a bunch of ScoopOption components from the options we get from the server (see above in 'useEffect').
-  // Otherwise,
-  // TODO: replace 'null' with 'ToppingOption' once it's available.
-  const ItemComponent = optionType === 'scoops' ? ScoopOption : null;
+  // Otherwise,...
+  const ItemComponent = optionType === 'scoops' ? ScoopOption : ToppingOption;
 
   // Make a bunch of 'ScoopOption' components based on the data we get back from the server.
   // And we'll call the array of components 'optionItems'.
