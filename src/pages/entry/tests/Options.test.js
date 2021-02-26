@@ -64,7 +64,6 @@ test('Displays image for each toppings option from server', async () => {
   expect(images).toHaveLength(3);
 
   // Check the actual alt text for the images.
-  // @ts-ignore
   const imageTitles = images.map((img) => img.alt);
   expect(imageTitles).toEqual([
     'Cherries topping',

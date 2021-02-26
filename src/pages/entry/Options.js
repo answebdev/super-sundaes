@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import ScoopOption from './ScoopOption';
 import ToppingOption from './ToppingOption';
+import AlertBanner from '../common/AlertBanner';
 
 // Sources:
 // https://www.udemy.com/course/react-testing-library/learn/lecture/24450802#overview
@@ -10,6 +11,9 @@ import ToppingOption from './ToppingOption';
 
 export default function Options({ optionType }) {
   const [items, setItems] = useState([]);
+
+  // Store whether or not we have an error in state:
+  const [error, setError] = useState(false);
 
   // We're dealing with asynchronicity here.
   // When we get the data from the server, we are using Axios,
@@ -26,13 +30,16 @@ export default function Options({ optionType }) {
       .get(`http://localhost:3030/${optionType}`)
       // Returns a promise with a response.
       .then((response) => setItems(response.data))
-      .catch((error) => {
-        // TODO: handle error response.
-      });
+      .catch((error) => setError(true));
     // So now, this is going to run once on component mount,
     // and then it will run again of the 'optionType' ever changes (though it's not likely in this app - that's not how this app works ->
     // if this option is running for 'scoops', it will always run for 'scoops', and the same for 'toppings').
   }, [optionType]);
+
+  // If we have an error, return alert component with the default prop.
+  if (error) {
+    return <AlertBanner />;
+  }
 
   // If we get 'scoops', then set 'ItemComponent' to be 'ScoopOption'. That's what we're going to render.
   // We're going to render a bunch of ScoopOption components from the options we get from the server (see above in 'useEffect').
